@@ -42,3 +42,5 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      */
     return nullptr;
 }
+
+// LOREM IPSUM
