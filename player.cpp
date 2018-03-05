@@ -44,3 +44,5 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 }
 
 // LOREM IPSUM
+
+// CS2 great class
