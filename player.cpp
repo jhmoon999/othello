@@ -71,20 +71,20 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                     move_points = b_copy->count(playerside) - b_copy->count(otherside);
 
                     if ((i % 7 == 0) && (j % 7 == 0)) {
-                        move_points = move_points * 3;
+                        move_points = move_points * 4;
                     }
 
                     else if ((i % 5 == 1) && (j % 5 == 1))
-                        move_points *= -3;
+                        move_points *= -4;
                     
                     else if ((i % 5 == 1) && (j % 7 == 0))
-                        move_points *= -2;
+                        move_points *= -3;
 
-                    else if ((i % 5 == 1) && (j % 7 == 0))
-                        move_points *= -2;
+                    else if ((j % 5 == 1) && (i % 7 == 0))
+                        move_points *= -3;
 
                     else if ((i % 7 == 0) || (j % 7 == 0))
-                        move_points *= 2;
+                        move_points *= 3;
 
 
                     if (best_move_points < move_points) {
