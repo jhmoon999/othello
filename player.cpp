@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include <vector>
 
 /*
  * Constructor for the player; initialize everything here. The side your AI is
@@ -9,13 +10,9 @@ Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
 
-    /*
-     * TODO: Do any initialization you need to do here (setting up the board,
-     * precalculating things, etc.) However, remember that you will only have
-     * 30 seconds.
-     */
-    //Board *b = new Board();
-    s = side;
+    // Initializes the side of the player and the opponent
+    playerside = side;
+    otherside = (side == BLACK) ? WHITE : BLACK;
 }
 
 /*
@@ -48,33 +45,43 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     //      check every square on board for valid move
     //      if valid, do the move
 
-    Side otherside = (s == BLACK) ? WHITE : BLACK;
+    // opponent does move / skips move
+    if (b->hasMoves(otherside)) {
+        b->doMove(opponentsMove, otherside);
+    }
 
-    //cerr << "my color: " << s << endl;
-    //cerr << "other color: " << otherside << endl;
+    Move *m = new Move(0, 0), *best_move = new Move(0, 0);
+    int move_points, best_move_points = -64;
+    Board *b_copy = b->copy();
 
-    b->doMove(opponentsMove, otherside);
-
-    //cerr << opponentsMove->getX() << " " << opponentsMove->getY() << endl << endl;
-
-    Move *m = new Move(0, 0);
-
-    if (b->hasMoves(s)) {
+    if (b->hasMoves(playerside)) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
 
                 m->setX(i);
                 m->setY(j);
 
-                //cerr << m->getX() << " " << m->getY() << " " << b->checkMove(m, s) << endl;
-                if (b->checkMove(m, s)) {
-                    b->doMove(m, s);
-                    //b->printBoard();
-                    return m;
+                if (b->checkMove(m, playerside)) {
+                    //cerr << m->getX() << " " << m->getY() << endl;
 
+                    b_copy = b->copy();
+                    b_copy->doMove(m, playerside);
+
+                    move_points = b_copy->count(playerside) - b_copy->count(otherside);
+                    if (best_move_points < move_points) {
+                        best_move_points = move_points;
+                        best_move->setX(i);
+                        best_move->setY(j);
+
+                        //cerr << "BM: " << best_move->getX() << " " << best_move->getY() << endl;
+                    }
                 }
+                //cerr << "BBM: " << best_move->getX() << " " << best_move->getY() << endl;
             }
         }
+
+        b->doMove(best_move, playerside);
+        return best_move;
     }
 
     return nullptr;
