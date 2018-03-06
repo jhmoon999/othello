@@ -12,6 +12,7 @@ public:
     Player(Side side);
     ~Player();
     Board *b = new Board();
+
     Side playerside;
     Side otherside;
 

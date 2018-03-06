@@ -13,6 +13,7 @@ Player::Player(Side side) {
     // Initializes the side of the player and the opponent
     playerside = side;
     otherside = (side == BLACK) ? WHITE : BLACK;
+
 }
 
 /*
