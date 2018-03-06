@@ -13,6 +13,7 @@ public:
     ~Player();
     Board *b = new Board();
     Side s;
+    Side otherside;
 
     Move *doMove(Move *opponentsMove, int msLeft);
 

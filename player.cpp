@@ -16,6 +16,7 @@ Player::Player(Side side) {
      */
     //Board *b = new Board();
     s = side;
+    Side otherside = (s == BLACK) ? WHITE : BLACK;
 }
 
 /*
@@ -48,12 +49,11 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     //      check every square on board for valid move
     //      if valid, do the move
 
-    Side otherside = (s == BLACK) ? WHITE : BLACK;
-
     //cerr << "my color: " << s << endl;
     //cerr << "other color: " << otherside << endl;
 
-    b->doMove(opponentsMove, otherside);
+    if(opponentsMove != nullptr)
+        b->doMove(opponentsMove, otherside);
 
     //cerr << opponentsMove->getX() << " " << opponentsMove->getY() << endl << endl;
 
