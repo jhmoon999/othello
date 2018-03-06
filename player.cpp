@@ -52,7 +52,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     }
 
     Move *m = new Move(0, 0), *best_move = new Move(0, 0);
-    int move_points, best_move_points = -64;
+    int move_points, best_move_points = -1000;
     Board *b_copy = b->copy();
 
     if (b->hasMoves(playerside)) {
@@ -69,12 +69,31 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                     b_copy->doMove(m, playerside);
 
                     move_points = b_copy->count(playerside) - b_copy->count(otherside);
+
+                    if ((i % 7 == 0) && (j % 7 == 0)) {
+                        move_points = move_points * 3;
+                    }
+
+                    else if ((i % 5 == 1) && (j % 5 == 1))
+                        move_points *= -3;
+                    
+                    else if ((i % 5 == 1) && (j % 7 == 0))
+                        move_points *= -2;
+
+                    else if ((i % 5 == 1) && (j % 7 == 0))
+                        move_points *= -2;
+
+                    else if ((i % 7 == 0) || (j % 7 == 0))
+                        move_points *= 2;
+
+
                     if (best_move_points < move_points) {
                         best_move_points = move_points;
                         best_move->setX(i);
                         best_move->setY(j);
 
-                        //cerr << "BM: " << best_move->getX() << " " << best_move->getY() << endl;
+                        //cerr << "Best Move: " << best_move->getX() << " " << best_move->getY() << endl;
+                        //cerr << "Best Points: " << best_move_points << endl << endl;
                     }
                 }
                 //cerr << "BBM: " << best_move->getX() << " " << best_move->getY() << endl;
