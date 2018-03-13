@@ -85,7 +85,9 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
                     free_cells = 64 - b_copy->countBlack() -  b_copy->countWhite();
 
-                    if ((! b_copy->hasMoves(otherside)) || (free_cells < 4) || (b_copy->count(otherside) > 2* b_copy->count(playerside)))
+                    if ((! b_copy->hasMoves(otherside)) || (b_copy->count(otherside) > 3* b_copy->count(playerside)))
+
+                   // if (! b_copy->hasMoves(otherside))
 
                     {
 
@@ -123,8 +125,8 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                                     opm_points = b2_copy->count(playerside) - b2_copy->count(otherside);
 
 
-                                    if ((n % 7 == 0) || (k % 7 == 0)) 
-                                        opm_points += abs(opm_points) * (-3);
+                                   // if ((n % 7 == 0) || (k % 7 == 0)) 
+                                    //    opm_points += abs(opm_points) * (-3);
 
 
 
@@ -147,7 +149,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                     }
                     
 
-                    if ((free_cells > 4) && (b_copy->count(playerside) > 4))
+                    if ((free_cells > 4) && (b_copy->count(playerside) > 2))
                     {
 
                         if ((i % 7 == 0) && (j % 7 == 0)) 
